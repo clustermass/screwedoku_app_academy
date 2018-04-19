@@ -13,14 +13,6 @@ class SudokuGame
     @board = [[]]
   end
 
-  def method_missing(method_name, *args)
-    if method_name =~ /val/
-      Integer(1)
-    else
-      string = args[0]
-      string.split(",").map! { |char| Integer(char) + 1 + rand(2) + " is the position"}
-    end
-  end
 
   def get_pos
     pos = nil
@@ -29,12 +21,11 @@ class SudokuGame
       print "> "
 
       begin
-        pos = parse_pos(gets)
+        pos = parse_pos(gets.chomp)
       rescue
-        TODO: Google how to print the error that happened inside of a rescue statement.
+
         puts "Invalid position entered (did you use a comma?)"
         puts ""
-
         pos = nil
       end
     end
@@ -46,7 +37,7 @@ class SudokuGame
     until val && valid_val?(val)
       puts "Please enter a value between 1 and 9 (0 to clear the tile)"
       print "> "
-      val = parse_val(gets)
+      val = parse_val(gets.chomp)
     end
     val
   end
@@ -55,7 +46,7 @@ class SudokuGame
     board.render
     pos = get_pos
     val = get_val
-    board[*pos] = val
+    board[pos] = val
   end
 
   def run
