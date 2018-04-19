@@ -12,7 +12,13 @@ class SudokuGame
   def initialize(board)
     @board = board
   end
+  def parse_pos(string)
+    string.split(",").map { |char| Integer(char) }
+  end
 
+  def parse_val(string)
+    Integer(string)
+  end
   def get_pos
     pos = nil
     until pos && valid_pos?(pos)
